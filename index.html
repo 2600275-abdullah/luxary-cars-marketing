@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Registry Matrix | ATELIER</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ==========================================================================
+           LUXURY AUTOMOTIVE CORE EMBEDDED FRAMEWORK (luxury.css)
+           ========================================================================== */
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,600;1,400&family=Inter:wght@300;400;500;600&family=Montserrat:wght@400;600&family=Playfair+Display:ital,wght@0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap');
+
+        :root {
+            --bg-primary: #0A0A0A;
+            --bg-surface: #1A1A1A;
+            --text-primary: #FFFFFF;
+            --text-muted: #A0AEC0;
+            --gold: #D4AF37;
+            --gold-rgb: 212, 175, 51;
+            --glass-border: rgba(212, 175, 55, 0.18);
+            --cursor-glow: rgba(212, 175, 55, 0.15);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #FFFFFF;
+            --bg-surface: #F8F9FA;
+            --text-primary: #0A0A0A;
+            --text-muted: #4A5568;
+            --glass-border: rgba(10, 10, 10, 0.15);
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', 'Poppins', sans-serif;
+            overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        .hero-title {
+            font-family: 'Cinzel', 'Playfair Display', serif;
+            font-size: 68px;
+            font-weight: 700;
+            line-height: 1.15;
+        }
+
+        .section-heading {
+            font-family: 'Cormorant Garamond', 'Cinzel', serif;
+            font-size: 42px;
+            font-weight: 600;
+        }
+
+        .sub-heading {
+            font-family: 'Poppins', sans-serif;
+            font-size: 26px;
+        }
+
+        .normal-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 17px;
+        }
+
+        .btn-luxury {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            background: transparent;
+            border-radius: 0px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-luxury:hover {
+            background: var(--gold);
+            color: #0A0A0A !important;
+            box-shadow: 0 0 20px rgba(var(--gold-rgb), 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 42px; }
+            .section-heading { font-size: 32px; }
+            .normal-text { font-size: 15px; }
+        }
+
+        .video-hero-container {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .video-hero-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            z-index: -100;
+            object-fit: cover;
+        }
+
+        .cursor-glow-element {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--cursor-glow) 0%, transparent 70%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            mix-blend-mode: screen;
+        }
+
+        .lightbox-container {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.95);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-img {
+            max-width: 85%;
+            max-height: 80vh;
+            border: 2px solid var(--gold);
+        }
+
+        /* ==========================================================================
+           ATELIER LUXURY GRID SYSTEM - PERFECT LANDSCAPE MATRIX (desktop-view.css)
+           ========================================================================== */
+        @media (min-width: 992px) {
+            #catalog-grid-space {
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 2rem !important;
+            }
+            #catalog-grid-space > .col-md-6.col-lg-4 {
+                width: 100% !important;
+                max-width: 100% !important;
+                flex: 0 0 100% !important;
+            }
+        }
+
+        @media (max-width: 991px) and (min-width: 768px) {
+            #catalog-grid-space {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 1.5rem !important;
+            }
+            #catalog-grid-space > .col-md-6.col-lg-4 {
+                width: 100% !important;
+                max-width: 100% !important;
+                flex: 0 0 100% !important;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #catalog-grid-space {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 1.5rem !important;
+            }
+        }
+
+        .glass-card {
+            display: flex !important;
+            flex-direction: column !important;
+            height: 100% !important;
+            background: #000000 !important;
+            border: 1px solid #d4af37 !important;
+            padding: 1.25rem !important;
+            border-radius: 0px !important;
+            transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+            backdrop-filter: blur(10px);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-4px) !important;
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15) !important;
+            border-color: var(--gold);
+        }
+
+        .img-wrapper {
+            position: relative !important;
+            width: 100% !important;
+            height: 0 !important;
+            padding-bottom: 56.25% !important;
+            overflow: hidden !important;
+            background-color: #0c0c0c !important;
+        }
+
+        .catalog-img-node {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            object-position: center !important;
+        }
+
+        .card-body {
+            display: flex !important;
+            flex-direction: column !important;
+            flex-grow: 1 !important;
+            padding: 1rem 0 0 0 !important;
+        }
+
+        .review-box {
+            background: rgba(15, 15, 15, 0.9) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            padding: 0.6rem 0.8rem !important;
+            margin-bottom: 1.25rem !important;
+            min-height: 85px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+        }
+
+        .card-body > .d-flex.gap-2.mt-auto {
+            margin-top: auto !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-dark p-2 text-center border-bottom border-secondary d-print-none">
+        <button class="btn btn-sm btn-outline-warning mx-1" onclick="switchView('catalog')">Catalog System</button>
+        <button class="btn btn-sm btn-outline-warning mx-1" onclick="switchView('compare')">Telemetry Deck (Compare)</button>
+        <button class="btn btn-sm btn-outline-warning mx-1" onclick="switchView('dashboard')">Analytics Console (Dashboard)</button>
+    </div>
+
+    <nav class="navbar navbar-dark pt-4 px-4">
+        <div class="container-fluid">
+            <a class="navbar-brand hero-title fs-3 text-warning fw-bold" href="#" onclick="switchView('catalog')">ATELIER</a>
+            <div class="d-flex align-items-center gap-4">
+                <button onclick="switchView('compare')" class="btn btn-luxury btn-sm py-2 px-3">⚖️ Evaluator Deck</button>
+                <button onclick="toggleApplicationTheme()" class="btn border-0 text-warning"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="view-catalog" class="app-view-container">
+        <div class="container my-5">
+            <div class="p-4 bg-black border border-secondary glass-card mb-5">
+                <div class="row g-4 align-items-end">
+                    <div class="col-md-3">
+                        <label class="form-label normal-text text-white-50 small text-uppercase">Registry Search String:</label>
+                        <input type="text" id="searchQueryField" oninput="mountCatalogEngine()" class="form-control bg-dark text-white border-secondary normal-text py-2" placeholder="Search parameters...">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label normal-text text-white-50 small text-uppercase">Isolate Brand Vector:</label>
+                        <select id="brandFilterField" onchange="mountCatalogEngine()" class="form-select bg-dark text-white border-secondary normal-text py-2">
+                            <option value="all">Display All Structural Brands</option>
+                            <option value="Rolls-Royce">Rolls-Royce</option>
+                            <option value="Lamborghini">Lamborghini</option>
+                            <option value="Bentley">Bentley</option>
+                            <option value="Ferrari">Ferrari</option>
+                            <option value="BMW">BMW</option>
+                            <option value="Porsche">Porsche</option>
+                            <option value="Kawasaki">Kawasaki</option>
+                            <option value="Ducati">Ducati</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label normal-text text-white-50 small text-uppercase">MSRP Asset Bracket:</label>
+                        <select id="priceFilterField" onchange="mountCatalogEngine()" class="form-select bg-dark text-white border-secondary normal-text py-2">
+                            <option value="all">All Financial Ranges</option>
+                            <option value="low">Sub $450,000 Allocation Cap</option>
+                            <option value="high">Premium Ultra $450,000+ Level</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 text-end">
+                        <div class="btn-group w-100">
+                            <button class="btn btn-outline-warning btn-sm active" onclick="mountCatalogEngine('all')">All Matrices</button>
+                            <button class="btn btn-outline-warning btn-sm" onclick="mountCatalogEngine('sports')">Sports</button>
+                            <button class="btn btn-outline-warning btn-sm" onclick="mountCatalogEngine('luxury')">Luxury</button>
+                            <button class="btn btn-outline-warning btn-sm" onclick="mountCatalogEngine('bike')">Bikes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4" id="catalog-grid-space"></div>
+        </div>
+
+        <div id="booking" class="container my-5 py-5 border-top border-secondary" style="max-width: 800px;">
+            <div class="glass-card p-5 bg-black">
+                <h2 class="section-heading text-warning text-center mb-2">Track Test Drive Intakes</h2>
+                <p class="normal-text text-muted text-center mb-5">Lock terminal window telemetry targets below to secure slot allocation keys.</p>
+                <form onsubmit="executeFormBookingSubmit(event)">
+                    <div class="row g-4">
+                        <div class="col-12">
+                            <label class="form-label text-white-50 small text-uppercase">Selected Asset Token String:</label>
+                            <input type="text" id="preferredVehicleField" class="form-control bg-dark text-white border-secondary py-3 normal-text" readonly placeholder="Select a car or bike frame from the catalog matrix above">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-white-50 small text-uppercase">Execution Date:</label>
+                            <input type="date" id="bookingDateField" class="form-control bg-dark text-white border-secondary py-3 font-monospace normal-text">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-white-50 small text-uppercase">Execution Time Vector:</label>
+                            <input type="time" id="bookingTimeField" class="form-control bg-dark text-white border-secondary py-3 font-monospace normal-text">
+                        </div>
+                        <div class="col-12 mt-5">
+                            <button type="submit" class="btn btn-luxury w-100 py-3">Dispatch Reservation Node Token</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="view-compare" class="app-view-container" style="display: none;">
+        <div class="container my-5">
+            <div class="text-center mb-5">
+                <h1 class="section-heading text-white">Evaluator Engine Matrix</h1>
+                <p class="normal-text text-muted">Review dual side-by-side telemetry indicators extracted directly from structural component frameworks.</p>
+            </div>
+            <div class="row g-4 justify-content-center" id="comparison-matrix-row"></div>
+        </div>
+    </div>
+
+    <div id="view-dashboard" class="app-view-container" style="display: none;">
+        <div class="container-fluid my-4">
+            <div class="row">
+                <main class="col-12 px-md-4">
+                    <div class="d-flex justify-content-between align-items-center pb-3 mb-4 border-bottom border-secondary">
+                        <h1 class="section-heading text-white">System Telemetry Logs</h1>
+                    </div>
+
+                    <div class="row g-4 mb-5">
+                        <div class="col-md-6">
+                            <div class="glass-card p-4">
+                                <h5 class="sub-heading text-warning fs-5 mb-4">MSRP Gross Sales Vector Volume</h5>
+                                <div id="admin-chart-sales" style="height:220px;"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="glass-card p-4">
+                                <h5 class="sub-heading text-warning fs-5 mb-4">Allocation Density Class Indexes</h5>
+                                <div id="admin-chart-metrics" style="height:220px;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-4">
+                        <h5 class="sub-heading text-white mb-4">Manage System Registries</h5>
+                        <div class="table-responsive">
+                            <table class="table table-dark table-hover align-middle border border-secondary text-start font-monospace">
+                                <thead>
+                                    <tr>
+                                        <th>Asset Token ID</th>
+                                        <th>Corporate Brand</th>
+                                        <th>Model Variant Sequence</th>
+                                        <th>Financial Benchmark MSRP</th>
+                                        <th class="text-center">Operations Terminal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr id="crud-row-node-1">
+                                        <td>#AT-1001</td>
+                                        <td class="text-warning fw-bold">Rolls-Royce</td>
+                                        <td>Phantom Coupe Vector</td>
+                                        <td>$450,000</td>
+                                        <td class="text-center">
+                                            <button class="btn btn-sm btn-outline-warning me-2" onclick="alert('Asset update matrix locked via compliance protocol.')"><i class="fa-solid fa-pen-to-square"></i></button>
+                                            <button class="btn btn-sm btn-outline-danger" onclick="purgeRegistryItem('crud-row-node-1')"><i class="fa-solid fa-trash-can"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr id="crud-row-node-2">
+                                        <td>#AT-1002</td>
+                                        <td class="text-warning fw-bold">Lamborghini</td>
+                                        <td>Revuelto V12 Frame</td>
+                                        <td>$600,000</td>
+                                        <td class="text-center">
+                                            <button class="btn btn-sm btn-outline-warning me-2" onclick="alert('Asset update matrix locked via compliance protocol.')"><i class="fa-solid fa-pen-to-square"></i></button>
+                                            <button class="btn btn-sm btn-outline-danger" onclick="purgeRegistryItem('crud-row-node-2')"><i class="fa-solid fa-trash-can"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <div class="lightbox-container" id="systemLightboxOverlay" onclick="closeLightboxPopup()">
+        <img src="" id="systemLightboxImage" class="lightbox-img">
+    </div>
+
+    <script>
+        const CAR_REGISTRY = [
+            { id: 1, brand: 'Rolls-Royce', model: 'Phantom Coupe', price: 450000, year: 2025, speed: '250 km/h', power: '563 HP', img: 'https://images.unsplash.com/photo-1632245889029-e406faaa34cd?w=800', cat: 'luxury', location: 'London Showroom, UK', rating: 5, reviews: ['Absolute masterpiece of luxury.', 'Silent like a ghost on the track.'] },
+            { id: 2, brand: 'Lamborghini', model: 'Revuelto V12', price: 600000, year: 2026, speed: '350 km/h', power: '1001 HP', img: 'https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?w=800', cat: 'sports', location: 'Sant’Agata Bolognese, Italy', rating: 5, reviews: ['The hybrid V12 engine is out of this world!', 'Pure adrenaline acceleration.'] },
+            { id: 3, brand: 'Bentley', model: 'Continental GT', price: 300000, year: 2024, speed: '335 km/h', power: '650 HP', img: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=800', cat: 'luxury', location: 'Crewe Vault, UK', rating: 4, reviews: ['Perfect balance of sportiness and grand touring prestige.'] },
+            { id: 4, brand: 'Ferrari', model: 'SF90 Stradale', price: 520000, year: 2025, speed: '340 km/h', power: '986 HP', img: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800', cat: 'sports', location: 'Maranello Deck, Italy', rating: 5, reviews: ['Unmatched track agility.', 'The digital cockpit layout is amazing.'] },
+            { id: 5, brand: 'BMW', model: 'M8 Competition', price: 135000, year: 2025, speed: '305 km/h', power: '617 HP', img: 'https://images.unsplash.com/photo-1617531653332-bd46c24f2068?w=800', cat: 'sports', location: 'Munich Hub, Germany', rating: 4, reviews: ['Daily drivable supercar performance.', 'Incredible grip on corners.'] },
+            { id: 6, brand: 'Porsche', model: '911 Turbo S', price: 230000, year: 2026, speed: '330 km/h', power: '640 HP', img: 'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?w=800', cat: 'sports', location: 'Stuttgart Vault, Germany', rating: 5, reviews: ['The launch control leaves you breathless.', 'Timeless silhouette configuration.'] },
+            { id: 7, brand: 'Kawasaki', model: 'Ninja H2R', price: 55000, year: 2025, speed: '400 km/h', power: '310 HP', img: 'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=800', cat: 'bike', location: 'Tokyo Terminal, Japan', rating: 5, reviews: ['Mind-bending supercharged speed.', 'Sounds like a fighter jet.'] },
+            { id: 8, brand: 'Ducati', model: 'Panigale V4 R', price: 45000, year: 2026, speed: '315 km/h', power: '218 HP', img: 'https://images.unsplash.com/photo-1599819811279-d5ad9cccf838?w=800', cat: 'bike', location: 'Bologna Garage, Italy', rating: 5, reviews: ['The closest experience you can get to a real MotoGP bike.', 'Beautiful aerodynamic wings.'] }
+        ];
+
+        let appWishlist = JSON.parse(localStorage.getItem('car_wishlist')) || [];
+        let comparisonTrack = JSON.parse(localStorage.getItem('car_compare')) || [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeGlobalUX();
+            mountCatalogEngine();
+            mountComparisonEngine();
+            renderDashboardCharts();
+        });
+
+        function switchView(viewName) {
+            document.querySelectorAll('.app-view-container').forEach(v => v.style.display = 'none');
+            const targetView = document.getElementById(`view-${viewName}`);
+            if(targetView) {
+                targetView.style.display = 'block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function initializeGlobalUX() {
+            const pointerGlow = document.createElement('div');
+            pointerGlow.className = 'cursor-glow-element';
+            document.body.appendChild(pointerGlow);
+            document.addEventListener('mousemove', (e) => {
+                pointerGlow.style.left = e.clientX + 'px';
+                pointerGlow.style.top = e.clientY + 'px';
+            });
+
+            const savedTheme = localStorage.getItem('app_theme_state') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+
+        function toggleApplicationTheme() {
+            const activeState = document.documentElement.getAttribute('data-theme');
+            const targetedState = activeState === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', targetedState);
+            localStorage.setItem('app_theme_state', targetedState);
+        }
+
+        function mountCatalogEngine(categoryFilter = 'all') {
+            const gridTarget = document.getElementById('catalog-grid-space');
+            if (!gridTarget) return;
+
+            if (window.event && window.event.currentTarget && window.event.currentTarget.tagName === 'BUTTON') {
+                const buttons = window.event.currentTarget.parentElement.querySelectorAll('button');
+                buttons.forEach(btn => btn.classList.remove('active'));
+                window.event.currentTarget.classList.add('active');
+            }
+
+            const queryInput = document.getElementById('searchQueryField')?.value.toLowerCase() || "";
+            const selectedBrand = document.getElementById('brandFilterField')?.value || "all";
+            const selectedPrice = document.getElementById('priceFilterField')?.value || "all";
+
+            gridTarget.innerHTML = "";
+
+            const analyticalDataset = CAR_REGISTRY.filter(item => {
+                const matchesCat = categoryFilter === 'all' || item.cat === categoryFilter;
+                const matchesQuery = item.brand.toLowerCase().includes(queryInput) || item.model.toLowerCase().includes(queryInput);
+                const matchesBrand = selectedBrand === 'all' || item.brand === selectedBrand;
+                
+                let matchesPrice = true;
+                if (selectedPrice === 'low') matchesPrice = item.price <= 450000;
+                if (selectedPrice === 'high') matchesPrice = item.price > 450000;
+
+                return matchesCat && matchesQuery && matchesBrand && matchesPrice;
+            });
+
+            analyticalDataset.forEach(v => {
+                const isFav = appWishlist.includes(v.id) ? 'fa-solid text-danger' : 'fa-regular';
+                const isComp = comparisonTrack.includes(v.id) ? 'btn-warning text-dark' : 'btn-outline-warning';
+                const buttonLabel = v.cat === 'bike' ? 'Book Ride' : 'Book Test Drive';
+
+                let starsHTML = '';
+                for (let i = 1; i <= 5; i++) {
+                    starsHTML += i <= v.rating ? '<i class="fa-solid fa-star text-warning me-1 small"></i>' : '<i class="fa-regular fa-star text-muted me-1 small"></i>';
+                }
+
+                let reviewsHTML = v.reviews.map(rev => `<p class="mb-1 small text-white-50 italic">"${rev}"</p>`).join('');
+
+                gridTarget.innerHTML += `
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card glass-card p-3 text-white h-100 d-flex flex-column">
+                            <div class="img-wrapper mb-3 overflow-hidden border border-secondary">
+                                <img src="${v.img}" class="w-100 h-100 object-fit-cover catalog-img-node" style="cursor:zoom-in;" onclick="triggerLightboxPopup('${v.img}')">
+                            </div>
+                            <div class="card-body px-0 py-2 d-flex flex-column flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <h4 class="sub-heading text-white mb-0 fs-5">${v.brand} <span class="normal-text text-muted d-block small">${v.model}</span></h4>
+                                    <button class="btn border-0 p-0 text-warning" onclick="toggleWishlistAction(${v.id}, '${categoryFilter}')"><i class="${isFav} fa-heart fa-lg"></i></button>
+                                </div>
+                                
+                                <div class="my-2 d-flex align-items-center justify-content-between">
+                                    <span class="normal-text text-warning font-monospace fw-bold fs-5">$${v.price.toLocaleString()}</span>
+                                    <div>${starsHTML}</div>
+                                </div>
+
+                                <p class="small text-muted mb-3"><i class="fa-solid fa-location-dot text-warning me-2"></i>${v.location}</p>
+                                
+                                <div class="review-box p-2 bg-dark border border-secondary mb-3 rounded-0 flex-grow-1">
+                                    <label class="text-uppercase text-muted font-monospace d-block mb-1" style="font-size:11px;">Client Attestations:</label>
+                                    ${reviewsHTML}
+                                </div>
+
+                                <div class="d-flex gap-2 mt-auto">
+                                    <button onclick="toggleCompareAction(${v.id}, '${categoryFilter}')" class="btn btn-sm w-50 btn-typography ${isComp}">⚖️ Compare</button>
+                                    <a href="#booking" onclick="document.getElementById('preferredVehicleField').value='${v.brand} ${v.model}'" class="btn btn-sm btn-luxury w-50">${buttonLabel}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function triggerLightboxPopup(sourceUri) {
+            const lbox = document.getElementById('systemLightboxOverlay');
+            const lboxImg = document.getElementById('systemLightboxImage');
+            if (!lbox || !lboxImg) return;
+            lboxImg.src = sourceUri;
+            lbox.style.display = 'flex';
+        }
+
+        document.getElementById('systemLightboxOverlay').addEventListener('click', () => {
+            document.getElementById('systemLightboxOverlay').style.display = 'none';
+        });
+
+        function toggleWishlistAction(id, currentCat) {
+            if (appWishlist.includes(id)) {
+                appWishlist = appWishlist.filter(x => x !== id);
+            } else {
+                appWishlist.push(id);
+            }
+            localStorage.setItem('car_wishlist', JSON.stringify(appWishlist));
+            mountCatalogEngine(currentCat);
+        }
+
+        function toggleCompareAction(id, currentCat) {
+            if (comparisonTrack.includes(id)) {
+                comparisonTrack = comparisonTrack.filter(x => x !== id);
+            } else {
+                if (comparisonTrack.length >= 2) {
+                    alert("Comparison matrix accommodates up to 2 vehicle tokens simultaneously.");
+                    return;
+                }
+                comparisonTrack.push(id);
+            }
+            localStorage.setItem('car_compare', JSON.stringify(comparisonTrack));
+            mountCatalogEngine(currentCat);
+            mountComparisonEngine();
+        }
+
+        function mountComparisonEngine() {
+            const rowAnchor = document.getElementById('comparison-matrix-row');
+            if (!rowAnchor) return;
+            rowAnchor.innerHTML = "";
+
+            if (comparisonTrack.length === 0) {
+                rowAnchor.innerHTML = `<div class="col-12 text-center text-muted normal-text py-5">No vehicle vectors assigned for comparative metrics.</div>`;
+                return;
+            }
+
+            comparisonTrack.forEach(carId => {
+                const car = CAR_REGISTRY.find(x => x.id === carId);
+                if(!car) return;
+                rowAnchor.innerHTML += `
+                    <div class="col-md-5">
+                        <div class="glass-card p-4 text-white text-center">
+                            <img src="${car.img}" class="img-fluid mb-3 w-100 object-fit-cover" style="height:250px;">
+                            <h3 class="sub-heading text-warning">${car.brand}</h3>
+                            <p class="normal-text font-monospace">${car.model}</p>
+                            <table class="table table-dark table-striped text-start border border-secondary mt-4">
+                                <tr><td>MSRP Benchmark:</td><td class="text-warning">$${car.price.toLocaleString()}</td></tr>
+                                <tr><td>Velocity Cap:</td><td>${car.speed}</td></tr>
+                                <tr><td>Powertrain Index:</td><td>${car.power}</td></tr>
+                                <tr><td>Production Year:</td><td>${car.year}</td></tr>
+                            </table>
+                            <button class="btn btn-outline-danger btn-sm w-100 mt-3" onclick="toggleCompareAction(${car.id}, 'all')">Remove Vector</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function executeFormBookingSubmit(event) {
+            event.preventDefault();
+            const targetModel = document.getElementById('preferredVehicleField').value;
+            const targetDate = document.getElementById('bookingDateField').value;
+            const targetTime = document.getElementById('bookingTimeField').value;
+
+            if (!targetModel || !targetDate || !targetTime) {
+                alert("Verification Matrix Failed: Complete all telemetry slots.");
+                return;
+            }
+
+            alert(`Reservation Dispatched Successfully!\nAsset Pool: ${targetModel}\nNode Schedule: ${targetDate} at ${targetTime}`);
+            event.target.reset();
+        }
+
+        function renderDashboardCharts() {
+            const salesCanvas = document.getElementById('admin-chart-sales');
+            const metricsCanvas = document.getElementById('admin-chart-metrics');
+
+            if (salesCanvas) {
+                salesCanvas.innerHTML = `
+                    <div class="d-flex align-items-end justify-content-between h-100 pt-4 px-2" style="height: 180px !important;">
+                        <div class="bg-warning" style="height: 40%; width: 12%;" title="Jan: $1.2M"></div>
+                        <div class="bg-warning" style="height: 65%; width: 12%;" title="Feb: $2.1M"></div>
+                        <div class="bg-warning" style="height: 50%; width: 12%;" title="Mar: $1.8M"></div>
+                        <div class="bg-warning" style="height: 85%; width: 12%;" title="Apr: $3.4M"></div>
+                        <div class="bg-warning" style="height: 95%; width: 12%;" title="May: $4.2M"></div>
+                    </div>
+                    <div class="d-flex justify-content-between border-top border-secondary pt-2 normal-text small text-muted font-monospace">
+                        <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span>
+                    </div>
+                `;
+            }
+
+            if (metricsCanvas) {
+                metricsCanvas.innerHTML = `
+                    <div class="d-flex align-items-end justify-content-between h-100 pt-4 px-2" style="height: 180px !important;">
+                        <div class="bg-secondary" style="height: 30%; width: 20%;" title="Sports"></div>
+                        <div class="bg-warning" style="height: 60%; width: 20%;" title="Luxury"></div>
+                        <div class="bg-warning" style="height: 40%; width: 20%;" title="Bikes"></div>
+                    </div>
+                    <div class="d-flex justify-content-around border-top border-secondary pt-2 normal-text small text-muted font-monospace">
+                        <span>Sports</span><span>Luxury</span><span>Bikes</span>
+                    </div>
+                `;
+            }
+        }
+
+        function purgeRegistryItem(rowElementId) {
+            if (confirm("Confirm vehicle vector structural deletion?")) {
+                document.getElementById(rowElementId)?.remove();
+            }
+        }
+    </script>
+</body>
+</html>
